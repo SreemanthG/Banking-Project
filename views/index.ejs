@@ -1,0 +1,11 @@
+<%- include("partials/header")-%>
+<div class="jumbo">
+ <% user.forEach(function(ele){ %>
+     <p><%=ele.email%></p>
+     <p><%=ele.mobile%></p>
+     
+ <% })%>
+</div>  
+<!-- <a href="/account" class="btn btn-primary btn-lg"></a> -->
+    
+<%- include("partials/footer")-%>

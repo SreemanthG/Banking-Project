@@ -1,0 +1,149 @@
+body{
+    /* background-color:rgb(207, 207, 207);  */
+}
+.content{
+    /* margin-left:300px; */
+}
+.navicon{
+    /* margin: 30px 30px; */
+    /* position: absolute;
+    top:10px;
+    left: 20px; */
+} 
+.navicon .fa:hover{
+    /* color: blue; */
+}
+
+/* .navicon .fa:active{
+    color: blue;
+} */
+
+
+.jumbo{
+    margin-top: 30vh;
+    text-align: center;
+    font-size: 48px;
+}
+.jumbo a{
+    padding: 10px 30px;
+    margin: 0 auto;
+}
+.login{
+    margin: 0 auto;
+    border: solid black 1px;
+    border-radius: 5px;
+    padding: 30px;
+    width: 40%;
+}
+.snav{
+    /* float: left;
+    width: 20%; */
+    
+}
+.content{
+    /* float: left;
+    width: 80%; */
+    width: 100%;
+    
+}
+.body{
+    display: flex;
+height: 100%;
+
+}
+.flex1{
+    display: flex;
+    flex-flow: column;
+    height: auto;
+
+    
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.sidenav{
+    display: flex;
+ 
+    z-index: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: stretch;
+    width: 200px;
+    height: 100%;
+    padding:30px;
+    flex-grow: 1;
+    margin-left:-135px ;
+    /* transform: translatex(-195px); */
+    background-color: #F5F5F5;
+}
+.item span{
+    text-align: right;
+
+}
+.item {
+    text-decoration: none;
+    color: black;
+    text-emphasis: none;
+}
+
+/* .sidenav:hover{
+    animation-name: sidenav; 
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+} */
+.menumove{
+    margin-left:155px;
+}
+.activesidebar{
+    padding:0;
+    animation-name: sidenav; 
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes sidenav{
+    0%{
+        /* transform: translatex(0px); */
+        margin-left:0 ;
+
+    }
+    100%{
+        /* width:255px; */
+        /* transform: translatex(0px); */
+        margin-left:0 ;
+    }
+}
+
+.subitems{
+display: flex;
+justify-content: space-between;
+
+}
+
+.subitemsactive{
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    /* padding: 20px; */
+padding: 10px 40px;
+
+}
+
+.subitems:hover{
+    color: rgba(255, 4, 4, 0.671);
+}
+
+.subitemsactive:hover{
+    background-color: rgba(255, 4, 4, 0.671);
+    color: black;
+}
+.subitems{
+    margin-top: 20px;
+}
+.accdetails{
+    margin:10px;
+}
+.accdetails strong{
+    margin-right:40px;
+}
