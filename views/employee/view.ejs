@@ -1,0 +1,56 @@
+<%- include("../partials/header")-%>
+<div class="container mt-5">
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="jumbotron">
+                <div class="accdetails">
+                    <strong>Email Id</strong>: <%= customer.email%>
+                </div>
+                <div class="accdetails">
+                    <strong>Mobile Number</strong>: <%= customer.email%>
+                </div>
+                <div class="accdetails">
+                    <strong>Name</strong>: <%= customer.email%>
+                </div>
+                <div class="accdetails">
+                    <strong>Address</strong>: <%= customer.email%>
+                </div>
+                <div class="accdetails">
+                    <strong>No. of accounts</strong>: <%= customer.email%>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%if(customer.account){%>
+
+    <div class="addacc">
+        <a href="/profile/new" class="btn btn-success mt-3 mr-3">Create a new account</a>        
+        <!-- <a href="" class="btn btn-primary mt-3 mr-3">Create a new account</a>         -->
+    </div>
+   
+    <div class="row">
+        <% customer.account.forEach(function(account){%>
+            <div class="col-md-3 mt-3">
+                <div class="card p-3 text-center">
+                    
+                    <h5><%= account.accountname%></h5>
+                    <h5><%= account.accountno%></h5>
+                    <div><a href="<%=customer._id%>/<%=account._id%>/edit" class="btn btn-primary">Edit</a></div>
+                    <!-- <h5><%= account.branch%></h5>
+                    <h5><%= account.accounttype%></h5>
+                    <h5><%= account.balance%></h5>
+                    <h5><%= account.mobile%></h5>
+                    <h5><%= account.email%></h5>
+                    <h5><%= account.address%></h5>
+                    <h5><%= account.pin%></h5> -->
+
+                 
+                </div>
+            </div>
+       <% })}%>
+    </div>
+</div>   
+    
+<%- include("../partials/footer")-%>

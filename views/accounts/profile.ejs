@@ -6,40 +6,54 @@
         <div class="col-sm-12">
             <div class="jumbotron">
                 <div class="accdetails">
-                    <strong>Email Id</strong>: <%= customer.email%>
+                    <strong>Email Id</strong>: <%= user.email%>
                 </div>
                 <div class="accdetails">
-                    <strong>Mobile Number</strong>: <%= customer.email%>
+                    <strong>Mobile Number</strong>: <%= user.email%>
                 </div>
                 <div class="accdetails">
-                    <strong>Name</strong>: <%= customer.email%>
+                    <strong>Name</strong>: <%= user.email%>
                 </div>
                 <div class="accdetails">
-                    <strong>Address</strong>: <%= customer.email%>
+                    <strong>Address</strong>: <%= user.email%>
                 </div>
                 <div class="accdetails">
-                    <strong>No. of accounts</strong>: <%= customer.email%>
+                    <strong>No. of accounts</strong>: <%= user.email%>
                 </div>
             </div>
         </div>
     </div>
+    <%if(user.account){%>
+
     <div class="addacc">
         <a href="/profile/new" class="btn btn-success mt-3 mr-3">Create a new account</a>        
         <!-- <a href="" class="btn btn-primary mt-3 mr-3">Create a new account</a>         -->
     </div>
    
     <div class="row">
-        <% customer.account.forEach(function(account){%>
+        <% user.account.forEach(function(account){%>
             <div class="col-md-3 mt-3">
                 <div class="card p-3 text-center">
                     
                     <h5><%= account.accountname%></h5>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus nesciunt voluptatum architecto deserunt? Architecto alias quas veniam et quo? Laboriosam veritatis aut sequi dolores ipsam dicta nisi beatae. Eligendi, at?</p>
-                    <a href="" class="btn btn-primary">Show</a>
+                    <h5><%= account.accountno%></h5>
+                    <h5><%= account.branch%></h5>
+                    <h5><%= account.accounttype%></h5>
+                    <h5><%= account.balance%></h5>
+                    <h5><%= account.mobile%></h5>
+                    <h5><%= account.email%></h5>
+                    <h5><%= account.address%></h5>
+                    <h5><%= account.pin%></h5>
+
+                  <% if(account.isAccepted){%>
+                  <a href="" class="btn btn-primary">Show</a>
+                  <%} else{%>
+                    <a href="" class="btn btn-primary disabled">Not accepted Yet</a>
+                    <%}%>
                 </div>
             </div>
-       <% })%>
-        <div class="col-md-3 mt-3">
+       <% })}%>
+        <!-- <div class="col-md-3 mt-3">
             <div class="card p-3 text-center">
                 
                 <h5>Account Name</h5>
@@ -79,7 +93,7 @@
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus nesciunt voluptatum architecto deserunt? Architecto alias quas veniam et quo? Laboriosam veritatis aut sequi dolores ipsam dicta nisi beatae. Eligendi, at?</p>
                 <a href="" class="btn btn-primary">Show</a>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>   
     

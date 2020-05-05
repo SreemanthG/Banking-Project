@@ -47,7 +47,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req,res,next){
     res.locals.currentUser= req.user;
-    // console.log(req.user)
+    console.log(req.user)
     // res.locals.error= req.flash("error");
     // res.locals.success= req.flash("success");
     next();
@@ -69,6 +69,10 @@ app.get("/index",function(req,res){
 })
 
 //Auth
+app.get("/logout",function(req,res){
+    req.logout();
+    res.redirect("/login");
+})
 app.get("/login",function(req,res){
 res.render("login");
 })
@@ -117,11 +121,18 @@ app.post("/signup",function(req,res){
                  console.log(err);
                 } else{
                     newlyCreated.userid = user._id;
-                    newlyCreated.save();
-                    passport.authenticate("local")(req,res,function(){
-                        res.redirect("/index");
-    
-                    })
+                newlyCreated.username = req.body.username;
+                newlyCreated.email = req.body.email;
+                newlyCreated.save();
+                user.userid= newlyCreated._id,
+                user.save();
+                console.log(newlyCreated);
+                console.log(user);
+                passport.authenticate("local")(req,res,function(){
+                    console.log("hello")
+                    res.redirect("/index");
+
+                })
                 }
             })
         }
@@ -134,16 +145,28 @@ app.post("/signup",function(req,res){
 //Account
 
 app.get("/profile",function(req,res){
+    if(req.user.usertype=="Customer"){
     Customer.findById(req.user.userid).populate("account").exec(function(err,foundCustomer){
         if(err){
             console.log(err)
         } else{
 
-            res.render("accounts/profile",{customer:foundCustomer});
+            res.render("accounts/profile",{user:foundCustomer});
 
     }
     
 })
+} else{
+    Employee.findById(req.user.userid,function(err,foundEmployee){
+        if(err){
+            console.log(err)
+        } else{
+            console.log(foundEmployee)
+            res.render("accounts/profile",{user:foundEmployee});
+    }
+    
+})
+}
 })
 app.get("/profile/new",function(req,res){
     res.render("accounts/new")
@@ -178,6 +201,47 @@ app.post("/profile",function(req,res){
     })
    
  })
-app.listen(3000,function(req,res){
+
+// Employee
+
+ //Customer add
+
+ app.get("/customers",function(req,res){
+     Customer.find({},function(err,foundCustomers){
+         if(err){
+             console.log(err);
+         } else{
+            res.render("employee/customers",{customers:foundCustomers});
+
+         }
+     })
+ })
+
+ app.get("/customers/:id",function(req,res){
+     Customer.findById(req.params.id).populate("account").exec(function(err,foundCustomer){
+        if(err){
+            console.log(err);
+        } else{
+            res.render("employee/view",{customer:foundCustomer})
+        }
+     })
+ })
+
+ app.get("/customers/:id/:accid/edit",function(req,res){
+    Account.findById(req.params.id).populate("account").exec(function(err,foundCustomer){
+       if(err){
+           console.log(err);
+       } else{
+        Account.findById(req.params.accid,function(err,foundAccount){
+            if(err){
+                console.log(err);
+            } else{
+                res.render("employee/edit",{account:foundAccount})
+            }
+         })
+       }
+    })
+})
+ app.listen(3000,function(req,res){
     console.log("Hey!!, This website is working at port 3000");
 })

@@ -1,11 +1,14 @@
 var mongoose = require("mongoose");
 
 var empSchema = new mongoose.Schema({
+    username: String,
     accounttype:String,
-    salary: String,
+    gender:String,
+    dob:Date,
+    adhaar:String,
+    salary:{type:String, default:"0"},
     mobile:String,
     email:String,
-    username: String,
     address:String,
     userid: {
         type:mongoose.Schema.Types.ObjectId,

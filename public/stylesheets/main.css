@@ -29,11 +29,11 @@ body{
     margin: 0 auto;
 }
 .login{
-    margin: 0 auto;
+    margin: 50px auto;
     border: solid black 1px;
     border-radius: 5px;
     padding: 30px;
-    width: 40%;
+    width: 70%;
 }
 .snav{
     /* float: left;

@@ -1,7 +1,7 @@
 <%- include("../partials/header")-%>
-<div class="container">
+
     <div class="login pt-5">
-        <h3>Sign Up</h3>
+        <h3>Add new Account</h3>
         <br>
         <form method="POST" action="/profile">
             <div class="form-group">
@@ -9,32 +9,48 @@
             <input type="email" class="form-control" name="account[email]" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail1">Account Name</label>
-                <input type="email" class="form-control" name="account[accountname]" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
+                <label for="exampleInputEmail1">Full Name</label>
+                <input type="text" class="form-control" name="account[accountname]" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Branch</label>
+                <select class="custom-select" name="account[branch]" id="inputGroupSelect01">
+                  <option selected>Choose...</option>
+                  <option value="Vellore">Vellore</option>
+                  <option value="Chennai">Chennai</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Account Type</label>
+                <select class="custom-select" name="account[accounttype]" id="inputGroupSelect01">
+                  <option selected>Choose...</option>
+                  <option value="savings">Savings</option>
+                  <option value="current">Current</option>
+                  <option value="fixed">Fixed</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Pin</label>
+                <input type="password" class="form-control" name="account[mobile]" id="exampleInputPassword1">
+              </div>
+             
             <div class="form-group">
-              <label for="exampleInputEmail1">Account Type</label>
-              <input type="email" class="form-control" name="account[type]" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <label for="exampleInputPassword1">Adhaar Number</label>
+              <input type="number" class="form-control" name="account[adhaar]" id="exampleInputPassword1">
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword1">Number</label>
-              <input type="number" class="form-control" name="account[mobile]" id="exampleInputPassword1">
+              <label for="exampleFormControlTextarea1">Address</label>
+              <textarea name="account[address]" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Description</label>
-              <input type="Description" class="form-control" name="account[description]" id="exampleInputPassword1">
-            </div>
-
             <div class="form-group form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Request for Account</button>
             
-            <p class="mt-2">Already have an account? <strong><a href="login">Login</a></strong></p>
+            <p class="mt-2">Already have an account? <strong><a href="/login">Login</a></strong></p>
           </form>
     </div>
-  
-</div>
+
     
 <%- include("../partials/footer")-%>
