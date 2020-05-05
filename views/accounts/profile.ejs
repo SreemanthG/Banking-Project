@@ -6,29 +6,39 @@
         <div class="col-sm-12">
             <div class="jumbotron">
                 <div class="accdetails">
-                    <strong>Email Id</strong>: dgdgr
+                    <strong>Email Id</strong>: <%= customer.email%>
                 </div>
                 <div class="accdetails">
-                    <strong>Mobile Number</strong>: drgedrtd
+                    <strong>Mobile Number</strong>: <%= customer.email%>
                 </div>
                 <div class="accdetails">
-                    <strong>Name</strong>: rgedrg
+                    <strong>Name</strong>: <%= customer.email%>
                 </div>
                 <div class="accdetails">
-                    <strong>Address</strong>: ertert
+                    <strong>Address</strong>: <%= customer.email%>
                 </div>
                 <div class="accdetails">
-                    <strong>No. of accounts</strong>: etert
+                    <strong>No. of accounts</strong>: <%= customer.email%>
                 </div>
             </div>
         </div>
     </div>
     <div class="addacc">
-        <a href="" class="btn btn-success mt-3 mr-3">Create a new account</a>        
+        <a href="/profile/new" class="btn btn-success mt-3 mr-3">Create a new account</a>        
         <!-- <a href="" class="btn btn-primary mt-3 mr-3">Create a new account</a>         -->
     </div>
-    
+   
     <div class="row">
+        <% customer.account.forEach(function(account){%>
+            <div class="col-md-3 mt-3">
+                <div class="card p-3 text-center">
+                    
+                    <h5><%= account.accountname%></h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus nesciunt voluptatum architecto deserunt? Architecto alias quas veniam et quo? Laboriosam veritatis aut sequi dolores ipsam dicta nisi beatae. Eligendi, at?</p>
+                    <a href="" class="btn btn-primary">Show</a>
+                </div>
+            </div>
+       <% })%>
         <div class="col-md-3 mt-3">
             <div class="card p-3 text-center">
                 

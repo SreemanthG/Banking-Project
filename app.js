@@ -1,17 +1,57 @@
 var express= require("express"),
 bodyParser = require("body-parser"),
 mongoose = require("mongoose"),
-User = require("./models/user"),
+Customer = require("./models/customer"),
 Account = require("./models/account"),
-seed = require("./seed")
-seed();
+passport = require("passport");
+localStrategy = require("passport-local");
+seed = require("./seed"),
+sequential = require("sequential-ids"),
+seqid = require("./models/seqid"),
+Employee = require("./models/employee"),
+User = require("./models/user");
+function preceedzero(n){
+    var s = n+"";
+    while (s.length < 4) s = "0" + s;
+    return s;
+}
+function genid(n){
+    var s = "2020"+preceedzero(n);
+    return s;
+}
+
+// seed()
 var app = express();
+
+
+
 mongoose.connect("mongodb://localhost/premierebank");
 app.set("view engine","ejs");
 app.use(express.static(__dirname+"/public"));
 
 app.use(bodyParser.urlencoded({extended:true}));
 
+
+app.use(require("express-session")({
+    secret: "This is a secret code for bank",
+    resave:false,
+    saveUninitialized:false
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req,res,next){
+    res.locals.currentUser= req.user;
+    // console.log(req.user)
+    // res.locals.error= req.flash("error");
+    // res.locals.success= req.flash("success");
+    next();
+})  
 
 
 app.get("/",function(req,res){
@@ -28,9 +68,14 @@ app.get("/index",function(req,res){
     })
 })
 
+//Auth
 app.get("/login",function(req,res){
-    
 res.render("login");
+})
+
+app.post("/login",passport.authenticate("local",
+{ successRedirect:"/index",failureRedirect:"/login"
+}),function(req,res){
 })
 
 app.get("/signup",function(req,res){
@@ -38,24 +83,63 @@ app.get("/signup",function(req,res){
 })
 
 app.post("/signup",function(req,res){
-   
 
-   User.create(req.body.user,function(err,newlyCreated){
-       if(err){
-        console.log(err);
-       } else{
-        res.redirect("/index");
-       }
-   })
+   var newUser = new User({username:req.body.username,email:req.body.email,usertype:req.body.usertype});
+    User.register(newUser,req.body.password,function(err,user){
+        if(err){
+            console.log(err)
+            return res.render("signup");
+        }
+        if(req.body.usertype === "Customer"){
+            Customer.create(req.body.user,function(err,newlyCreated){
+                if(err){
+                 console.log(err);
+                } else{
+                   
+                newlyCreated.userid = user._id;
+                newlyCreated.username = req.body.username;
+                newlyCreated.email = req.body.email;
+                newlyCreated.save();
+                user.userid= newlyCreated._id,
+                user.save();
+                console.log(newlyCreated);
+                console.log(user);
+                passport.authenticate("local")(req,res,function(){
+                    console.log("hello")
+                    res.redirect("/index");
+
+                })
+                }
+            })
+        } else{
+            Employee.create(req.body.user,function(err,newlyCreated){
+                if(err){
+                 console.log(err);
+                } else{
+                    newlyCreated.userid = user._id;
+                    newlyCreated.save();
+                    passport.authenticate("local")(req,res,function(){
+                        res.redirect("/index");
+    
+                    })
+                }
+            })
+        }
+       
+         
+    })
+
+  
 })
 //Account
 
 app.get("/profile",function(req,res){
-    User.find({}).populate("account").exec(function(err,foundUser){
+    Customer.findById(req.user.userid).populate("account").exec(function(err,foundCustomer){
         if(err){
             console.log(err)
         } else{
-            res.render("accounts/profile",{user:foundUser});
+
+            res.render("accounts/profile",{customer:foundCustomer});
 
     }
     
@@ -65,20 +149,28 @@ app.get("/profile/new",function(req,res){
     res.render("accounts/new")
 })
 app.post("/profile",function(req,res){
-   
-    User.find({}).populate("account").exec(function(err,foundUser){
+    Customer.findById(req.user.userid,function(err,foundCustomer){
         if(err){
             console.log(err)
         } else{
-           
+           console.log(foundCustomer);
             Account.create(req.body.account,function(err,newlyCreated){
                 if(err){
                  console.log(err);
                 } else{
-                    foundUser[0].account.push(newlyCreated);
-                    newlyCreated.save();
-                    foundUser[0].save();
-                    res.redirect("/profile");
+                    Account.count(function(err,c){
+                        if(err){
+                            console.log(err)
+                        }   else{
+                            newlyCreated.accountno = genid(c+1);
+                            newlyCreated.save();
+                            foundCustomer.account.push(newlyCreated);
+                            foundCustomer.save();
+                            console.log(newlyCreated);
+                            res.redirect("/profile");
+                        }
+                    })
+
                 }
             })
             
