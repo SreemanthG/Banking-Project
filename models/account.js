@@ -3,6 +3,7 @@ var accountSchema = mongoose.Schema({
     accountno:String,
     accountname:String,
     branch:String,
+    balance:{type:String, default:"0"},
     accounttype:String,
     mobile:String,
     email:String,

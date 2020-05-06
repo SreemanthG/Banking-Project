@@ -3,13 +3,19 @@ bodyParser = require("body-parser"),
 mongoose = require("mongoose"),
 Customer = require("./models/customer"),
 Account = require("./models/account"),
-passport = require("passport");
-localStrategy = require("passport-local");
+passport = require("passport"),
+localStrategy = require("passport-local"),
 seed = require("./seed"),
 sequential = require("sequential-ids"),
 seqid = require("./models/seqid"),
 Employee = require("./models/employee"),
 User = require("./models/user");
+var employeeRoutes =require("./routes/employee"),
+customerRoutes = require("./routes/customer"),
+accountRoutes = require("./routes/account"),
+authRoutes = require("./routes/auth");
+
+
 function preceedzero(n){
     var s = n+"";
     while (s.length < 4) s = "0" + s;
@@ -22,6 +28,7 @@ function genid(n){
 
 // seed()
 var app = express();
+
 
 
 
@@ -53,195 +60,235 @@ app.use(function(req,res,next){
     next();
 })  
 
+app.use(employeeRoutes);
+app.use(accountRoutes);
+app.use(authRoutes);
+app.use(customerRoutes);
 
-app.get("/",function(req,res){
+
+app.get("/",isLoggedIn,function(req,res){
     res.render("home");
 });
 
-app.get("/index",function(req,res){
-    User.find({},function(err,foundUser){
-        if(err){
-            console.log(err)
-        } else{
-            res.render("index",{user:foundUser});
-        }
-    })
-})
 
-//Auth
-app.get("/logout",function(req,res){
-    req.logout();
+function isLoggedIn(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
     res.redirect("/login");
-})
-app.get("/login",function(req,res){
-res.render("login");
-})
+}
 
-app.post("/login",passport.authenticate("local",
-{ successRedirect:"/index",failureRedirect:"/login"
-}),function(req,res){
+ app.listen(3000,function(req,res){
+    console.log("Hey!!, This website is working at port 3000");
 })
 
-app.get("/signup",function(req,res){
-    res.render("signup");
-})
+// app.get("/index",isLoggedIn,function(req,res){
+//     User.find({},function(err,foundUser){
+//         if(err){
+//             console.log(err)
+//         } else{
+//             res.render("index",{user:foundUser});
+//         }
+//     })
+// })
 
-app.post("/signup",function(req,res){
+// //Auth
+// app.get("/logout",function(req,res){
+//     req.logout();
+//     res.redirect("/login");
+// })
+// app.get("/login",function(req,res){
+// res.render("login");
+// })
 
-   var newUser = new User({username:req.body.username,email:req.body.email,usertype:req.body.usertype});
-    User.register(newUser,req.body.password,function(err,user){
-        if(err){
-            console.log(err)
-            return res.render("signup");
-        }
-        if(req.body.usertype === "Customer"){
-            Customer.create(req.body.user,function(err,newlyCreated){
-                if(err){
-                 console.log(err);
-                } else{
+// app.post("/login",passport.authenticate("local",
+// { successRedirect:"/index",failureRedirect:"/login"
+// }),function(req,res){
+// })
+
+// app.get("/signup",function(req,res){
+//     res.render("signup");
+// })
+
+// app.post("/signup",function(req,res){
+
+//    var newUser = new User({username:req.body.username,email:req.body.email,usertype:req.body.usertype});
+//     User.register(newUser,req.body.password,function(err,user){
+//         if(err){
+//             console.log(err)
+//             return res.render("signup");
+//         }
+//         if(req.body.usertype === "Customer"){
+//             Customer.create(req.body.user,function(err,newlyCreated){
+//                 if(err){
+//                  console.log(err);
+//                 } else{
                    
-                newlyCreated.userid = user._id;
-                newlyCreated.username = req.body.username;
-                newlyCreated.email = req.body.email;
-                newlyCreated.save();
-                user.userid= newlyCreated._id,
-                user.save();
-                console.log(newlyCreated);
-                console.log(user);
-                passport.authenticate("local")(req,res,function(){
-                    console.log("hello")
-                    res.redirect("/index");
+//                 newlyCreated.userid = user._id;
+//                 newlyCreated.username = req.body.username;
+//                 newlyCreated.email = req.body.email;
+//                 newlyCreated.save();
+//                 user.userid= newlyCreated._id,
+//                 user.save();
+//                 console.log(newlyCreated);
+//                 console.log(user);
+//                 passport.authenticate("local")(req,res,function(){
+//                     console.log("hello")
+//                     res.redirect("/index");
 
-                })
-                }
-            })
-        } else{
-            Employee.create(req.body.user,function(err,newlyCreated){
-                if(err){
-                 console.log(err);
-                } else{
-                    newlyCreated.userid = user._id;
-                newlyCreated.username = req.body.username;
-                newlyCreated.email = req.body.email;
-                newlyCreated.save();
-                user.userid= newlyCreated._id,
-                user.save();
-                console.log(newlyCreated);
-                console.log(user);
-                passport.authenticate("local")(req,res,function(){
-                    console.log("hello")
-                    res.redirect("/index");
+//                 })
+//                 }
+//             })
+//         } else{
+//             Employee.create(req.body.user,function(err,newlyCreated){
+//                 if(err){
+//                  console.log(err);
+//                 } else{
+//                     newlyCreated.userid = user._id;
+//                 newlyCreated.username = req.body.username;
+//                 newlyCreated.email = req.body.email;
+//                 newlyCreated.save();
+//                 user.userid= newlyCreated._id,
+//                 user.save();
+//                 console.log(newlyCreated);
+//                 console.log(user);
+//                 passport.authenticate("local")(req,res,function(){
+//                     console.log("hello")
+//                     res.redirect("/index");
 
-                })
-                }
-            })
-        }
+//                 })
+//                 }
+//             })
+//         }
        
          
-    })
+//     })
 
   
-})
-//Account
+// })
+// //Account
 
-app.get("/profile",function(req,res){
-    if(req.user.usertype=="Customer"){
-    Customer.findById(req.user.userid).populate("account").exec(function(err,foundCustomer){
-        if(err){
-            console.log(err)
-        } else{
+// app.get("/profile",isLoggedIn,function(req,res){
+//     if(req.user.usertype=="Customer"){
+//     Customer.findById(req.user.userid).populate("account").exec(function(err,foundCustomer){
+//         if(err){
+//             console.log(err)
+//         } else{
 
-            res.render("accounts/profile",{user:foundCustomer});
+//             res.render("accounts/profile",{user:foundCustomer});
 
-    }
+//     }
     
-})
-} else{
-    Employee.findById(req.user.userid,function(err,foundEmployee){
-        if(err){
-            console.log(err)
-        } else{
-            console.log(foundEmployee)
-            res.render("accounts/profile",{user:foundEmployee});
-    }
+// })
+// } else{
+//     Employee.findById(req.user.userid,function(err,foundEmployee){
+//         if(err){
+//             console.log(err)
+//         } else{
+//             console.log(foundEmployee)
+//             res.render("accounts/profile",{user:foundEmployee});
+//     }
     
-})
-}
-})
-app.get("/profile/new",function(req,res){
-    res.render("accounts/new")
-})
-app.post("/profile",function(req,res){
-    Customer.findById(req.user.userid,function(err,foundCustomer){
-        if(err){
-            console.log(err)
-        } else{
-           console.log(foundCustomer);
-            Account.create(req.body.account,function(err,newlyCreated){
-                if(err){
-                 console.log(err);
-                } else{
-                    Account.count(function(err,c){
-                        if(err){
-                            console.log(err)
-                        }   else{
-                            newlyCreated.accountno = genid(c+1);
-                            newlyCreated.save();
-                            foundCustomer.account.push(newlyCreated);
-                            foundCustomer.save();
-                            console.log(newlyCreated);
-                            res.redirect("/profile");
-                        }
-                    })
+// })
+// }
+// })
+// app.get("/profile/new",isLoggedIn,function(req,res){
+//     res.render("accounts/new")
+// })
+// app.post("/profile",isLoggedIn,function(req,res){
+//     Customer.findById(req.user.userid,function(err,foundCustomer){
+//         if(err){
+//             console.log(err)
+//         } else{
+//            console.log(foundCustomer);
+//             Account.create(req.body.account,function(err,newlyCreated){
+//                 if(err){
+//                  console.log(err);
+//                 } else{
+//                     Account.count(function(err,c){
+//                         if(err){
+//                             console.log(err)
+//                         }   else{
+//                             newlyCreated.accountno = genid(c+1);
+//                             newlyCreated.save();
+//                             foundCustomer.account.push(newlyCreated);
+//                             foundCustomer.save();
+//                             console.log(newlyCreated);
+//                             res.redirect("/profile");
+//                         }
+//                     })
 
-                }
-            })
+//                 }
+//             })
             
-        }
-    })
+//         }
+//     })
    
- })
+//  })
 
 // Employee
 
  //Customer add
 
- app.get("/customers",function(req,res){
-     Customer.find({},function(err,foundCustomers){
-         if(err){
-             console.log(err);
-         } else{
-            res.render("employee/customers",{customers:foundCustomers});
+//  app.get("/customers",isLoggedIn,function(req,res){
+//      Customer.find({},function(err,foundCustomers){
+//          if(err){
+//              console.log(err);
+//          } else{
+//             res.render("employee/customers",{customers:foundCustomers});
 
-         }
-     })
- })
+//          }
+//      })
+//  })
 
- app.get("/customers/:id",function(req,res){
-     Customer.findById(req.params.id).populate("account").exec(function(err,foundCustomer){
-        if(err){
-            console.log(err);
-        } else{
-            res.render("employee/view",{customer:foundCustomer})
-        }
-     })
- })
+//  app.get("/customers/:id",isLoggedIn,function(req,res){
+//      Customer.findById(req.params.id).populate("account").exec(function(err,foundCustomer){
+//         if(err){
+//             console.log(err);
+//         } else{
+//             res.render("employee/view",{customer:foundCustomer})
+//         }
+//      })
+//  })
 
- app.get("/customers/:id/:accid/edit",function(req,res){
-    Account.findById(req.params.id).populate("account").exec(function(err,foundCustomer){
-       if(err){
-           console.log(err);
-       } else{
-        Account.findById(req.params.accid,function(err,foundAccount){
-            if(err){
-                console.log(err);
-            } else{
-                res.render("employee/edit",{account:foundAccount})
-            }
-         })
-       }
-    })
-})
- app.listen(3000,function(req,res){
-    console.log("Hey!!, This website is working at port 3000");
-})
+//  app.get("/customers/:id/:accid/edit",isLoggedIn,function(req,res){
+//     Account.findById(req.params.id).populate("account").exec(function(err,foundCustomer){
+//        if(err){
+//            console.log(err);
+//        } else{
+//         Account.findById(req.params.accid,function(err,foundAccount){
+//             if(err){
+//                 console.log(err);
+//             } else{
+//                 res.render("employee/edit",{account:foundAccount})
+//             }
+//          })
+//        }
+//     })
+// })
+
+// //Customer Req
+
+// app.get("/requests",isLoggedIn,function(req,res){
+//     Account.find({isAccepted:false},function(err,foundAccounts){
+//         if(err){
+//             console.log(err)
+//         } else{
+//             console.log("found");
+//             console.log(foundAccounts);
+//             res.render("employee/request",{accounts:foundAccounts})
+//         }
+//     })
+// })
+
+
+// app.get("/requests/:id",isLoggedIn,function(req,res){
+//     Account.findByIdAndUpdate(req.params.id,{isAccepted:true},function(err,foundAccount){
+//         if(err){
+//             console.log(err)
+//         } else{
+//             console.log(foundAccount)
+//             res.redirect("/requests")
+//         }
+//     })
+// })

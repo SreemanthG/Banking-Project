@@ -1,0 +1,36 @@
+<%- include("../partials/header")-%>
+
+<div class="container mt-5">
+ <div class="row">
+   
+        <div class="col-sm-12">
+            <div class="jumbotron">
+                <div class="accdetails">
+                    <strong>Account Number</strong>: <%= account.accountno%>
+                </div>
+                <div class="accdetails">
+                    <strong>Account Name</strong>: <%= account.accountname%>
+                </div>
+                <div class="accdetails">
+                    <strong>Branch</strong>: <%= account.branch%>
+                </div>
+                <div class="accdetails">
+                    <strong>Balance</strong>: <%= account.balance%>
+                </div>
+                <div class="accdetails">
+                    <strong>Account type</strong>: <%= account.accounttype%>
+                </div>
+                <div class="accdetails">
+                    <strong>Mobile</strong>: <%= account.mobile%>
+                </div>
+                <div class="accdetails">
+                    <strong>Email</strong>: <%= account.email%>
+                </div>
+                <div class="accdetails">
+                    <strong>address</strong>: <%= account.address%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include("../partials/footer")-%>

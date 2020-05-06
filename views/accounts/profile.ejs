@@ -26,7 +26,7 @@
     <%if(user.account){%>
 
     <div class="addacc">
-        <a href="/profile/new" class="btn btn-success mt-3 mr-3">Create a new account</a>        
+        <a href="/profile/acc/new" class="btn btn-success mt-3 mr-3">Create a new account</a>        
         <!-- <a href="" class="btn btn-primary mt-3 mr-3">Create a new account</a>         -->
     </div>
    
@@ -46,7 +46,7 @@
                     <h5><%= account.pin%></h5>
 
                   <% if(account.isAccepted){%>
-                  <a href="" class="btn btn-primary">Show</a>
+                  <a href="profile/acc/<%= account._id%>" class="btn btn-primary">Show</a>
                   <%} else{%>
                     <a href="" class="btn btn-primary disabled">Not accepted Yet</a>
                     <%}%>
