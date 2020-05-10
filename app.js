@@ -18,7 +18,8 @@ customerRoutes = require("./routes/customer"),
 accountRoutes = require("./routes/account"),
 authRoutes = require("./routes/auth"),
 benificiaryRoutes = require("./routes/benificiary"),
-transactionRoutes = require("./routes/transactions");
+transactionRoutes = require("./routes/transactions"),
+accstatementRoutes = require("./routes/accountstats");
 
 
 function preceedzero(n){
@@ -86,6 +87,7 @@ app.use(authRoutes);
 app.use(customerRoutes);
 app.use(benificiaryRoutes);
 app.use(transactionRoutes);
+app.use(accstatementRoutes);
 
 
 app.get("/",isLoggedIn,function(req,res){

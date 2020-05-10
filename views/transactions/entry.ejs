@@ -8,7 +8,7 @@
                     
                     <h5><%= account.accountname%></h5>
                     <h5><%= account.accountno%></h5>
-                    <div><a href="/cus/transactions/<%=account._id%>/new" class="btn btn-primary">Select</a></div>
+                    <div><a href="/cus/transactions/<%=account._id%>/sendMail?to=<%=account.email%>" class="btn btn-primary">Select</a></div>
             
                 </div>
             </div>

@@ -1,0 +1,16 @@
+<%- include("../partials/header")-%>
+
+    <div class="login pt-5">
+        <h3>CHECK YOUR MAIL FOR OTP</h3>
+        <br>
+        <form method="POST" action="/cus/transactions/<%=accountid%>/verify">
+            <div class="form-group">
+            <label for="exampleInputEmail1">Verification Code</label>
+            <input type="number" required class="form-control" value="" name="randcode" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+    </div>
+
+    
+<%- include("../partials/footer")-%>

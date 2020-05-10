@@ -8,7 +8,20 @@ Transactions = require("../models/transactions");
 Fawn = require("fawn");
 const mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost/premierebank");
+var nodemailer = require("nodemailer");
+const prompt = require('prompt');
 Fawn.init(mongoose);
+var mailuser,mailpass;
+var smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        // user:###mailuser###,
+        // pass: ###mailpass##
+    }
+});
+var rand,mailOptions,host,link;
+/*------------------SMTP Over-----------------------------*/
+
 // const uri = 'mongodb://Sreemanth:27017,Sreemanth:27018,Sreemanth:27019/premierebank';
 
 // (async () => {
@@ -82,7 +95,36 @@ router.post("/cus/transactions/:id",isLoggedIn,function(req,res){
                                                 benacc.save();
                                                 console.log(foundAccount);
                                                 console.log(benacc);
-                                                res.send("success");
+                                             
+                                                var receivermail={
+                                                    to :"sreemanth2001@gmail.com",
+                                                    subject :"Premiere Bank",
+                                                    html : "Your amount has been credited from the bank "+req.body.transactions.amount+" <br>"
+                                                    };
+                                                var sendermail={
+                                                    to : "sreemanth2001@gmail.com",
+                                                    subject : "Premiere Bank",
+                                                    html : "Your amount has been debited from the bank "+req.body.transactions.amount+" <br>"
+                                                }
+                                              
+                                            
+                                                smtpTransport.sendMail(receivermail, function(error, response1){
+                                                 if(error){
+                                                        console.log(error);
+                                                         res.send("error Occured sending mail");
+                                                 }else{
+                                                    smtpTransport.sendMail(sendermail, function(error, response2){
+                                                        if(error){
+                                                               console.log(error);
+                                                                res.send("error Occured sending mail");
+                                                        }else{
+                                                              res.send("success")
+                                                            }
+                                                  
+                                               })
+                                                     }
+                                           
+                                        })
                                             }
                                         })
                                         
@@ -102,6 +144,41 @@ router.post("/cus/transactions/:id",isLoggedIn,function(req,res){
         }
     }
     })
+})
+//Verify Mail
+router.get("/cus/transactions/:id/sendMail",isLoggedIn,function(req,res){
+    rand=Math.floor((Math.random() * 10000000) + 54);
+
+    mailOptions={
+        to : req.query.to,
+        subject : "Please confirm your Transaction",
+        html : "Hello,<br> Please Click on the link to verify your email This is your verification id "+rand+" <br>"
+    }
+    console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function(error, response){
+     if(error){
+            console.log(error);
+        res.send("error");
+     }else{
+            console.log("Message sent: " + response.message);
+            res.redirect("/cus/transactions/"+req.params.id+"/sendMail/new");
+         }
+});
+    
+})
+//Verify Mail
+router.get("/cus/transactions/:id/sendMail/new",isLoggedIn,function(req,res){
+    res.render("transactions/verify",{accountid:req.params.id});
+})
+router.post("/cus/transactions/:id/verify",isLoggedIn,function(req,res){
+    var randcode = req.body.randcode;
+    if(randcode==rand){
+        res.redirect("/cus/transactions/"+req.params.id+"/new");
+    } else{
+        res.send("Try Again: <a href='/cus/transactions/:id/sendMail/new'>Try again</a>")
+    }
+
+    
 })
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
