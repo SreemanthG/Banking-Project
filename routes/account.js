@@ -15,10 +15,10 @@ function genid(n){
     var s = "2020"+preceedzero(n);
     return s;
 }
-router.get("/profile/acc/new",isLoggedIn,function(req,res){
+router.get("/cus/profile/acc/new",isLoggedIn,function(req,res){
     res.render("accounts/new")
 })
-router.post("/profile/acc",isLoggedIn,function(req,res){
+router.post("/cus/profile/acc",isLoggedIn,function(req,res){
     Customer.findById(req.user.userid,function(err,foundCustomer){
         if(err){
             console.log(err)
@@ -37,7 +37,7 @@ router.post("/profile/acc",isLoggedIn,function(req,res){
                             foundCustomer.account.push(newlyCreated);
                             foundCustomer.save();
                             console.log(newlyCreated);
-                            res.redirect("/profile");
+                            res.redirect("/cus/profile");
                         }
                     })
 
@@ -49,7 +49,7 @@ router.post("/profile/acc",isLoggedIn,function(req,res){
    
  })
 
- router.get("/profile/acc/:id",isLoggedIn,function(req,res){
+ router.get("/cus/profile/acc/:id",isLoggedIn,function(req,res){
         Customer.findById(req.user.userid,function(err,foundEmployee){
             if(err){
                 console.log(err)

@@ -1,14 +1,22 @@
 var mongoose = require("mongoose");
 var accountSchema = mongoose.Schema({
-    accountno:String,
+    accountno:Number,
     accountname:String,
     branch:String,
-    balance:{type:String, default:"0"},
+    balance:{type:Number, default:"0"},
     accounttype:String,
     mobile:String,
     email:String,
     address:String,
     pin:String,
-    isAccepted:{type:Boolean, default:false}
+    isAccepted:{type:Boolean, default:false},
+    benificiary:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Benificiary"
+    }],
+    transactions:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Transactions"
+    }]
 });
 module.exports = mongoose.model("Account",accountSchema);

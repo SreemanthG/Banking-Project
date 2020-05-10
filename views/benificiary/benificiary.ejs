@@ -1,0 +1,69 @@
+<%- include("../partials/header")-%>
+<div class="container">
+
+    <h2>Benificiary Accounts</h2>
+    <div>
+      <a href="/cus/benificiary/<%=account._id%>/new" class="btn btn-success mt-4 mb-4">Add Benificiary account</a>
+  
+    </div>
+    <br>
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Account Number</th>
+          <th>Account Name</th>
+          <th>Branch</th>
+          <th>Account type</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>address</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody id="myTable">
+          <%account.benificiary.forEach(function(account){%>
+        <tr>
+          <td> <%=account.accountno%> </td>
+          <td><%=account.accountname%></td>
+          <td><%=account.branch%></td>
+          <td><%=account.accounttype%></td>
+          <td><%=account.mobile%></td>
+          <td><%=account.email%></td>
+          <td><%=account.address%></td>
+          <td><a href="" class="btn btn-primary">Accept</a></td>
+        </tr>
+        <%})%>
+        <!-- <tr>
+          <td>Mary</td>
+          <td>Moe</td>
+          <td>mary@mail.com</td>
+        </tr>
+        <tr>
+          <td>July</td>
+          <td>Dooley</td>
+          <td>july@greatstuff.com</td>
+        </tr>
+        <tr>
+          <td>Anja</td>
+          <td>Ravendale</td>
+          <td>a_r@test.com</td>
+        </tr> -->
+      </tbody>
+    </table>
+</div>
+
+
+
+
+<script>$(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });</script>
+    
+<%- include("../partials/footer")-%>

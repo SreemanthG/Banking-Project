@@ -4,8 +4,11 @@ Customer = require("../models/customer"),
 Account = require("../models/account"),
 User = require("../models/user"),
 Employee = require("../models/employee");
-
-router.get("/index",isLoggedIn,function(req,res){
+router.get("/emp",isLoggedIn,function(req,res){
+    
+    res.redirect("/emp/index")
+ });
+router.get("/emp/index",isLoggedIn,function(req,res){
     User.find({},function(err,foundUser){
         if(err){
             console.log(err)
@@ -15,7 +18,7 @@ router.get("/index",isLoggedIn,function(req,res){
     })
 })
 
-router.get("/customers",isLoggedIn,function(req,res){
+router.get("/emp/customers",isLoggedIn,function(req,res){
     Customer.find({},function(err,foundCustomers){
         if(err){
             console.log(err);
@@ -26,7 +29,7 @@ router.get("/customers",isLoggedIn,function(req,res){
     })
 })
 
-router.get("/customers/:id",isLoggedIn,function(req,res){
+router.get("/emp/customers/:id",isLoggedIn,function(req,res){
     Customer.findById(req.params.id).populate("account").exec(function(err,foundCustomer){
        if(err){
            console.log(err);
@@ -36,7 +39,7 @@ router.get("/customers/:id",isLoggedIn,function(req,res){
     })
 })
 
-router.get("/customers/:id/:accid/edit",isLoggedIn,function(req,res){
+router.get("/emp/customers/:id/:accid/edit",isLoggedIn,function(req,res){
    Account.findById(req.params.id).populate("account").exec(function(err,foundCustomer){
       if(err){
           console.log(err);
@@ -54,7 +57,7 @@ router.get("/customers/:id/:accid/edit",isLoggedIn,function(req,res){
 
 //Customer Req
 
-router.get("/requests",isLoggedIn,function(req,res){
+router.get("/emp/requests",isLoggedIn,function(req,res){
    Account.find({isAccepted:false},function(err,foundAccounts){
        if(err){
            console.log(err)
@@ -67,18 +70,18 @@ router.get("/requests",isLoggedIn,function(req,res){
 })
 
 
-router.get("/requests/:id",isLoggedIn,function(req,res){
+router.get("/emp/requests/:id",isLoggedIn,function(req,res){
    Account.findByIdAndUpdate(req.params.id,{isAccepted:true},function(err,foundAccount){
        if(err){
            console.log(err)
        } else{
            console.log(foundAccount)
-           res.redirect("/requests")
+           res.redirect("/emp/requests")
        }
    })
 })
 
-router.get("/profile",isLoggedIn,function(req,res){
+router.get("/emp/profile",isLoggedIn,function(req,res){
     if(req.user.usertype=="Customer"){
     Customer.findById(req.user.userid).populate("account").exec(function(err,foundCustomer){
         if(err){

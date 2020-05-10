@@ -1,0 +1,39 @@
+<%- include("../partials/header")-%>
+
+    <div class="login pt-5">
+        <h3>Add new Account for benificiary</h3>
+        <br>
+        <form method="POST" action="/cus/transactions/<%=account._id%>">
+            <div class="form-group">
+            <label for="exampleInputEmail1">Amount</label>
+            <input type="number" required class="form-control" value="" name="transactions[amount]" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <!-- <div class="form-group">
+                <label for="exampleInputEmail1">Account</label>
+                <input type="text" class="form-control" value="" name="transactions[accountno]" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div> -->
+              <!-- <div class="form-group">
+                <label for="exampleInputPassword1">Ben acc</label>
+                <input type="number" class="form-control" value="" name="transactions[benacc]" id="exampleInputPassword1">
+              </div> -->
+              <div class="form-group">
+                <label for="exampleInputPassword1">To account</label>
+                <select class="custom-select" requierd name="transactions[benacc]" id="inputGroupSelect01">
+                  <%account.benificiary.forEach(function(ben){%>
+                    <option value="<%=ben.accountno%>"><%=ben.accountno%></option>
+                  <%})%>
+                  
+                  <!-- <option value="current">Current</option>
+                  <option value="fixed">Fixed</option> -->
+                </select>
+              </div>
+            <!-- <div class="form-group">
+              <label for="exampleInputPassword1">Account No.</label>
+              <input type="number" value="" class="form-control" name="benificiary[accountno]" id="exampleInputPassword1">
+            </div> -->
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+    </div>
+
+    
+<%- include("../partials/footer")-%>

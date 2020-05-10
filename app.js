@@ -9,11 +9,16 @@ seed = require("./seed"),
 sequential = require("sequential-ids"),
 seqid = require("./models/seqid"),
 Employee = require("./models/employee"),
-User = require("./models/user");
+User = require("./models/user"),
+Benificiary = require("./models/benificiary"),
+Transactions = require("./models/transactions");
+
 var employeeRoutes =require("./routes/employee"),
 customerRoutes = require("./routes/customer"),
 accountRoutes = require("./routes/account"),
-authRoutes = require("./routes/auth");
+authRoutes = require("./routes/auth"),
+benificiaryRoutes = require("./routes/benificiary"),
+transactionRoutes = require("./routes/transactions");
 
 
 function preceedzero(n){
@@ -30,9 +35,24 @@ function genid(n){
 var app = express();
 
 
-
+// // REPLICA SET
 
 mongoose.connect("mongodb://localhost/premierebank");
+// const uri = 'mongodb://Sreemanth:27017,Sreemanth:27018,Sreemanth:27019/premierebank';
+
+// (async () => {
+//     try {
+//         await mongoose.connect(uri, { replicaSet: 'rs' , useNewUrlParser: true });
+//         // const session = await mongoose.startSession();
+//         // session.startTransaction();
+        // Account.find({},function(err,doc){
+        //     console.log(doc);
+        // })
+        
+//     } catch (err) {
+//       console.log('error: ' + err)
+//     }
+//   })()
 app.set("view engine","ejs");
 app.use(express.static(__dirname+"/public"));
 
@@ -64,6 +84,8 @@ app.use(employeeRoutes);
 app.use(accountRoutes);
 app.use(authRoutes);
 app.use(customerRoutes);
+app.use(benificiaryRoutes);
+app.use(transactionRoutes);
 
 
 app.get("/",isLoggedIn,function(req,res){

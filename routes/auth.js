@@ -15,7 +15,7 @@ res.render("login");
 })
 
 router.post("/login",passport.authenticate("local",
-{ successRedirect:"/index",failureRedirect:"/login"
+{ successRedirect:"/",failureRedirect:"/login"
 }),function(req,res){
 })
 
@@ -47,7 +47,7 @@ router.post("/signup",function(req,res){
                 console.log(user);
                 passport.authenticate("local")(req,res,function(){
                     console.log("hello")
-                    res.redirect("/index");
+                    res.redirect("cus/index");
 
                 })
                 }
@@ -67,7 +67,7 @@ router.post("/signup",function(req,res){
                 console.log(user);
                 passport.authenticate("local")(req,res,function(){
                     console.log("hello")
-                    res.redirect("/index");
+                    res.redirect("emp/index");
 
                 })
                 }
