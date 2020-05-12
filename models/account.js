@@ -17,6 +17,10 @@ var accountSchema = mongoose.Schema({
     transactions:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Transactions"
+    }],
+    check:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Checks"
     }]
 });
 module.exports = mongoose.model("Account",accountSchema);

@@ -1,0 +1,26 @@
+<%- include("../partials/header")-%>
+
+    <div class="login pt-5">
+        <h3>Generate a checkbook</h3>
+        <br>
+        <form method="POST" action="/cus/transactions/<%=account._id%>">
+            <div class="form-group">
+            <label for="exampleInputEmail1"></label>
+            <input type="number" required class="form-control" value="" name="transactions[amount]" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">To account</label>
+                <select class="custom-select" requierd name="transactions[benacc]" id="inputGroupSelect01">
+                  <%account.benificiary.forEach(function(ben){%>
+                    <option value="<%=ben.accountno%>"><%=ben.accountno%></option>
+                  <%})%>
+                  
+                </select>
+            </div>
+         
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+    </div>
+
+    
+<%- include("../partials/footer")-%>

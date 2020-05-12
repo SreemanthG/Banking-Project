@@ -1,0 +1,19 @@
+<%- include("../partials/header")-%>
+<div class="container mt-5">
+    Select your account you want to begin the transaction with
+    <div class="row">
+        <% customer.account.forEach(function(account){%>
+            <div class="col-md-3 mt-3">
+                <div class="card p-3 text-center">
+                    
+                    <h5><%= account.accountname%></h5>
+                    <h5><%= account.accountno%></h5>
+                    <div><a href="/cus/check/<%=account._id%>/" class="btn btn-primary">Select</a></div>
+            
+                </div>
+            </div>
+       <% })%>
+    </div>
+</div>   
+    
+<%- include("../partials/footer")-%>

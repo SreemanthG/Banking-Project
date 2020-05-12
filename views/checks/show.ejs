@@ -1,0 +1,53 @@
+<%- include("../partials/header")-%>
+<div class="container">
+
+    <h2>Your Checks</h2>
+    <div>
+      <a href="/cus/check/<%=account._id%>/gencheck" class="btn btn-success mt-4 mb-4">Generate a checkbook</a>
+  
+    </div>
+    <br>
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Account Number</th>
+          <th>Account Name</th>
+          <th>Checkno.</th>
+          <th>Status</th>
+          <th>Report</th>
+        </tr>
+      </thead>
+      <tbody id="myTable">
+          <%account.check.forEach(function(account1){%>
+        <tr>
+          <td> <%=account.accountno%> </td>
+          <td><%=account.accountname%></td>
+          <td><%=account1.checkno%></td>
+          <td><%if(account1.isUsed){%> Used <%}else if(account.isLost){%> Blocked <%}else{%> Not used <%}%> </td>
+          
+            <td><%if(account1.isLost){%><form method="POST" action="/cus/check/<%=account._id%>/<%=account1._id%>/"><input type="submit" class="btn btn-light disabled" value="Blocked"></form><%} else{%> <form method="POST" action="/cus/check/<%=account._id%>/<%=account1._id%>/"><input type="submit" class="btn btn-danger" value="Block"></form> <%}%></td>
+          
+          
+          
+        </tr>
+        <%})%>
+        
+      </tbody>
+    </table>
+</div>
+
+
+
+
+<script>$(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });</script>
+    
+<%- include("../partials/footer")-%>

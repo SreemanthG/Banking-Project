@@ -15,6 +15,9 @@ function genid(n){
     var s = "2020"+preceedzero(n);
     return s;
 }
+function gencard(n){
+    var s =  Math.floor(1000000000 + Math.random() * 9000000000).toString() + preceedzero(n);
+}
 router.get("/cus/profile/acc/new",isLoggedIn,function(req,res){
     res.render("accounts/new")
 })
@@ -71,6 +74,38 @@ router.post("/cus/profile/acc",isLoggedIn,function(req,res){
                 })
             }
         })
+ })
+
+ router.post("/cus/profile/acc/:id/gencard",function(req,rse){
+     Account.findById(req.params.id,function(err,foundAccount){
+         if(err){
+            console.log(err)
+         } else{
+            if(req.body.type == "credit"){
+                if(foundAccount.isCredit){
+                    console.log("Already Have an card");
+                    res.redirect("/cus/profile/acc/"+req.params.id)
+                } else{
+                    Card.create(req.body.card,function(err,createdCard){
+                        Account.count(function(err,c){
+                            if(err){
+                                console.log(err)
+                            }   else{
+                            createdCard.number= gencard(c+1);
+                            createdCard.cvv = Math.floor(Math.random()*900);
+                            createdCard.save();
+                            foundAccount.card.push(createdCard);
+                            foundAccount.isCredit = true;
+                            foundAccount.save();
+                            res.redirect("/cus/profile/acc/"+req.params.ids)
+                            }
+                        })
+                       
+                    })
+                }
+             }
+         }
+     })
  })
  function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
