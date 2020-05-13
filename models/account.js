@@ -21,6 +21,12 @@ var accountSchema = mongoose.Schema({
     check:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Checks"
-    }]
+    }],
+    card:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Card"
+    }],
+    isCredit: {type:Boolean,default:false},
+    isDebit: {type:Boolean,default:false}
 });
 module.exports = mongoose.model("Account",accountSchema);

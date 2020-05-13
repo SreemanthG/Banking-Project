@@ -30,7 +30,42 @@
                     <strong>address</strong>: <%= account.address%>
                 </div>
             </div>
+            <div class="row">
+                
+                <% if(!account.isCredit){%>
+                <div class="col-sm-3">
+                        <form action="/cus/profile/acc/<%= account._id%>/gencard" method="POST">
+                            <input name="type" type="hidden" value="credit">
+                            <input type="submit"class="btn btn-success" value="GENERATE CREDIT CARD" id="">
+                        </form>
+                       
+                </div>
+                <%} if(!account.isDebit){%>
+                    <div class="col-sm-6">
+                        <form action="/cus/profile/acc/<%= account._id%>/gencard" method="POST">
+                            <input name="type" type="hidden" value="debit">
+                            <input type="submit"class="btn btn-success" value="GENERATE DEBIT CARD" id="">
+                        </form>
+                    </div>
+                <%}%>
+            </div>
+            <div class="row">
+                <% account.card.forEach(function(card){%>
+                    <div class="col-md-3 mt-3">
+                        <div class="card p-3 text-center">
+                            
+                            <h5><%= card.cardno%></h5>
+                            <h5><%= card.cvv%></h5>
+                            <h5><%= card.expirationDate%></h5>
+                            <h5><%= card.cardType%></h5>
+
+                    
+                        </div>
+                    </div>
+               <% })%>
+            </div>
         </div>
+        
     </div>
 </div>
 <%- include("../partials/footer")-%>

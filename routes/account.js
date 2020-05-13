@@ -3,7 +3,8 @@ var router = express.Router(),
 Customer = require("../models/customer"),
 Account = require("../models/account"),
 User = require("../models/user"),
-Employee = require("../models/employee");
+Employee = require("../models/employee"),
+Card = require("../models/card");
 
 
 function preceedzero(n){
@@ -17,6 +18,7 @@ function genid(n){
 }
 function gencard(n){
     var s =  Math.floor(1000000000 + Math.random() * 9000000000).toString() + preceedzero(n);
+    return s;
 }
 router.get("/cus/profile/acc/new",isLoggedIn,function(req,res){
     res.render("accounts/new")
@@ -60,7 +62,7 @@ router.post("/cus/profile/acc",isLoggedIn,function(req,res){
                 // console.log(foundEmployee)
                 foundEmployee.account.forEach(function(accountid){
                     if(accountid==req.params.id){
-                        Account.findById(req.params.id,function(err,foundAccount){
+                        Account.findById(req.params.id).populate("card").exec(function(err,foundAccount){
                             if(err){
                                 console.log(err)
                             } else{
@@ -76,7 +78,7 @@ router.post("/cus/profile/acc",isLoggedIn,function(req,res){
         })
  })
 
- router.post("/cus/profile/acc/:id/gencard",function(req,rse){
+ router.post("/cus/profile/acc/:id/gencard",isLoggedIn,function(req,res){
      Account.findById(req.params.id,function(err,foundAccount){
          if(err){
             console.log(err)
@@ -86,21 +88,60 @@ router.post("/cus/profile/acc",isLoggedIn,function(req,res){
                     console.log("Already Have an card");
                     res.redirect("/cus/profile/acc/"+req.params.id)
                 } else{
-                    Card.create(req.body.card,function(err,createdCard){
-                        Account.count(function(err,c){
+                    Card.create({cardType:"credit"},function(err,createdCard){
+                        if(err){
+                            console.log(err);
+                            
+                        } else{
+                        console.log("Hello"+createdCard);
+                        Card.count(function(err,c){
                             if(err){
                                 console.log(err)
                             }   else{
-                            createdCard.number= gencard(c+1);
+                            createdCard.cardno= gencard(c+1);
                             createdCard.cvv = Math.floor(Math.random()*900);
                             createdCard.save();
                             foundAccount.card.push(createdCard);
                             foundAccount.isCredit = true;
                             foundAccount.save();
-                            res.redirect("/cus/profile/acc/"+req.params.ids)
+                            console.log(createdCard);
+                            console.log(foundAccount);
+                            res.redirect("/cus/profile/acc/"+req.params.id)
                             }
                         })
+                        }
+                        
                        
+                    })
+                }
+             }
+             else if(req.body.type == "debit"){
+                if(foundAccount.isDebit){
+                    console.log("Already Have an card");
+                    res.redirect("/cus/profile/acc/"+req.params.id)
+                } else{
+                    Card.create({cardType:"debit"},function(err,createdCard){
+                        if(err){
+                            console.log(err);
+                            
+                        } else{
+                        console.log("Hello"+createdCard);
+                        Card.count(function(err,c){
+                            if(err){
+                                console.log(err)
+                            }   else{
+                            createdCard.cardno= gencard(c+1);
+                            createdCard.cvv = Math.floor(Math.random()*900);
+                            createdCard.save();
+                            foundAccount.card.push(createdCard);
+                            foundAccount.isDebit = true;
+                            foundAccount.save();
+                            console.log(createdCard);
+                            console.log(foundAccount);
+                            res.redirect("/cus/profile/acc/"+req.params.id)
+                            }
+                        })
+                        }
                     })
                 }
              }
