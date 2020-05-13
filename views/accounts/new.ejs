@@ -7,15 +7,15 @@
         <form method="POST" action="/cus/profile/acc">
             <div class="form-group">
             <label for="exampleInputEmail1">Email</label>
-            <input type="email" class="form-control" name="account[email]" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="email" class="form-control" name="account[email]" required id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Full Name</label>
-                <input type="text" class="form-control" name="account[accountname]" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" class="form-control" name="account[accountname]" required  id="exampleInputEmail1" aria-describedby="emailHelp">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Branch</label>
-                <select class="custom-select" name="account[branch]" id="inputGroupSelect01">
+                <select class="custom-select" name="account[branch]" required  id="inputGroupSelect01">
                   <option selected>Choose...</option>
                   <option value="Vellore">Vellore</option>
                   <option value="Chennai">Chennai</option>
@@ -23,30 +23,33 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Account Type</label>
-                <select class="custom-select" name="account[accounttype]" id="inputGroupSelect01">
+                <select class="custom-select" name="account[accounttype]" required  id="inputGroupSelect01">
                   <option selected>Choose...</option>
                   <option value="savings">Savings</option>
-                  <option value="current">Current</option>
-                  <option value="fixed">Fixed</option>
+                  <!-- <option value="current">Current</option>
+                  <option value="fixed">Fixed</option> -->
                 </select>
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Pin</label>
-                <input type="password" class="form-control" name="account[mobile]" id="exampleInputPassword1">
+                <input type="password" class="form-control" name="account[pin]" required  id="exampleInputPassword1">
               </div>
-             
+              <div class="form-group">
+                <label for="exampleInputPassword1">Mobile Number</label>
+                <input type="password" class="form-control" name="account[mobile]"  required id="exampleInputPassword1">
+              </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Adhaar Number</label>
-              <input type="number" class="form-control" name="account[adhaar]" id="exampleInputPassword1">
+              <input type="number" class="form-control" name="account[adhaar]"  required id="exampleInputPassword1">
             </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Address</label>
-              <textarea name="account[address]" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <textarea name="account[address]" class="form-control"  required id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
-            <div class="form-group form-check">
+            <!-- <div class="form-group form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
+            </div> -->
             <button type="submit" class="btn btn-primary">Request for Account</button>
           
           </form>

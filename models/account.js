@@ -8,7 +8,7 @@ var accountSchema = mongoose.Schema({
     mobile:String,
     email:String,
     address:String,
-    pin:String,
+    pin:Number,
     isAccepted:{type:Boolean, default:false},
     benificiary:[{
         type:mongoose.Schema.Types.ObjectId,

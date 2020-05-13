@@ -1,5 +1,12 @@
 body{
-    /* background-color:rgb(207, 207, 207);  */
+color: #393C51;
+}
+.whitefont{
+    color: white;
+}
+.whitebutton{
+    color: black;
+    background-color: white;
 }
 .content{
     /* margin-left:300px; */
@@ -10,10 +17,28 @@ body{
     top:10px;
     left: 20px; */
 } 
+.navbar{
+    background-color: #FFFFFF;
+}
 .navicon .fa:hover{
     /* color: blue; */
 }
+.btn-primary{
+    background-color: #6b75ca;
+}
+.btn-primary:hover{
+    background-color: #6b75cad8;
+}
 
+
+
+.btn-success{
+    background-color: #393c51;
+}
+
+.btn-success:hover{
+    background-color: #393c51bb;
+}
 /* .navicon .fa:active{
     color: blue;
 } */
@@ -28,13 +53,20 @@ body{
     padding: 10px 30px;
     margin: 0 auto;
 }
+.jumbotron{
+    background-color: white;
+    color: #393c51;
+}
 .login{
-    margin: 50px auto;
+    margin: 90px auto;
     border: solid black 1px;
     border-radius: 5px;
     padding: 30px;
-    width: 70%;
+    width: 400px;
+background-color: white;
 }
+
+
 .snav{
     /* float: left;
     width: 20%; */
@@ -44,11 +76,13 @@ body{
     /* float: left;
     width: 80%; */
     width: 100%;
-    
+    padding-bottom: 30px;
 }
 .body{
     display: flex;
-height: 100%;
+min-height: 100vh;
+background-color: #F0F3F8;
+
 
 }
 .flex1{
@@ -75,7 +109,8 @@ html, body {
     flex-grow: 1;
     margin-left:-135px ;
     /* transform: translatex(-195px); */
-    background-color: #F5F5F5;
+    background-color: #FFFFFF;
+    
 }
 .item span{
     text-align: right;
@@ -131,11 +166,11 @@ padding: 10px 40px;
 }
 
 .subitems:hover{
-    color: rgba(255, 4, 4, 0.671);
+    color: #6B75CA;
 }
 
 .subitemsactive:hover{
-    background-color: rgba(255, 4, 4, 0.671);
+    background-color: #6B75CA;
     color: black;
 }
 .subitems{
@@ -147,3 +182,12 @@ padding: 10px 40px;
 .accdetails strong{
     margin-right:40px;
 }
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: white;
+ }
+
+ .card{
+     padding-top: 30px !important;
+     min-height: 170px;
+ }
