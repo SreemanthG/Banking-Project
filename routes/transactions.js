@@ -15,8 +15,8 @@ var mailuser,mailpass;
 var smtpTransport = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-        user:"sreemanth2001",
-        pass: "tubelight14"
+        user:"",
+        pass: ""
     }
 });
 var rand,mailOptions,host,link;
