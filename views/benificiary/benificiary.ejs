@@ -13,26 +13,23 @@
       <thead>
         <tr>
           <th>Account Number</th>
-          <th>Account Name</th>
+          <!-- <th>Account Name</th>
           <th>Branch</th>
-          <th>Account type</th>
+          <th>Account type</th> -->
           <th>Mobile</th>
           <th>Email</th>
-          <th>address</th>
+          <!-- <th>address</th> -->
           <th>Delete</th>
         </tr>
       </thead>
       <tbody id="myTable">
-          <%account.benificiary.forEach(function(account){%>
+          <%account.benificiary.forEach(function(account1){%>
         <tr>
-          <td> <%=account.accountno%> </td>
-          <td><%=account.accountname%></td>
-          <td><%=account.branch%></td>
-          <td><%=account.accounttype%></td>
-          <td><%=account.mobile%></td>
-          <td><%=account.email%></td>
-          <td><%=account.address%></td>
-          <td><a href="" class="btn btn-primary">Accept</a></td>
+          <td> <%=account1.accountno%> </td>
+          <td><%=account1.mobile%></td>
+          <td><%=account1.email%></td>
+          <!-- <td><%=account.address%></td> -->
+          <td><a href="/cus/benificiary/<%= account._id%>/<%=account1._id%>" class="btn btn-primary">Delete</a></td>
         </tr>
         <%})%>
         <!-- <tr>

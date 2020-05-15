@@ -1,5 +1,6 @@
 body{
 color: #393C51;
+background-color: #F0F3F8;
 }
 .whitefont{
     color: white;
@@ -190,4 +191,8 @@ padding: 10px 40px;
  .card{
      padding-top: 30px !important;
      min-height: 170px;
+
+ }
+ .login{
+    border: 0px solid black;
  }

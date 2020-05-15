@@ -8,6 +8,9 @@
         <th scope="col">From</th>
         <th scope="col">To</th>
         <th scope="col">Type</th>
+        <th scope="col">Is Check</th>
+
+        <!-- <th scope="col">Is Check<th> -->
       </tr>
     </thead>
     <tbody>
@@ -16,11 +19,13 @@
           <td><%=trans.date %></td>
           <td><%=trans.to%></td>
           <td><%=trans.from%></td>
+          
           <%if(account.accountno===trans.from){%>
-            <td>Debited <%=trans.amount%></td>
+            <td>- <%=trans.amount%></td>
           <%}else{%>
-            <td>Credited <%=trans.amount%></td>
+            <td>+ <%=trans.amount%></td>
           <%}%>
+          <td><%=trans.isCheck%></td>
         </tr>
       <%})%>
       

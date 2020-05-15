@@ -1,13 +1,14 @@
 <%- include("../partials/header")-%>
 <div class="container mt-5">
-
+<p>        Select your account to get benificiary details</p>
     <div class="row">
+
         <% customer.account.forEach(function(account){%>
             <div class="col-md-3 mt-3">
                 <div class="card p-3 text-center">
                     
-                    <h5><%= account.accountname%></h5>
-                    <h5><%= account.accountno%></h5>
+                    <strong>Account Name</strong>:<%= account.accountname%>
+                    <strong>Account No.</strong>:<%= account.accountno%>
                     <div><a href="/cus/benificiary/<%=account._id%>" class="btn btn-primary">Select</a></div>
             
                 </div>

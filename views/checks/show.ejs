@@ -27,7 +27,7 @@
           <td><%=account1.checkno%></td>
           <td><%if(account1.isUsed){%> Used <%}else if(account.isLost){%> Blocked <%}else{%> Not used <%}%> </td>
           
-            <td><%if(account1.isLost){%><form method="POST" action="/cus/check/<%=account._id%>/<%=account1._id%>/"><input type="submit" class="btn btn-light disabled" value="Blocked"></form><%} else{%> <form method="POST" action="/cus/check/<%=account._id%>/<%=account1._id%>/"><input type="submit" class="btn btn-danger" value="Block"></form> <%}%></td>
+            <td><%if(account1.isLost||account1.isUsed){%><form method="POST" action="/cus/check/<%=account._id%>/<%=account1._id%>/"><input type="submit" class="btn btn-light disabled" value="Blocked"></form><%} else{%> <form method="POST" action="/cus/check/<%=account._id%>/<%=account1._id%>/"><input type="submit" class="btn btn-danger" value="Block"></form> <%}%></td>
           
           
           

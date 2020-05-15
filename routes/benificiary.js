@@ -38,6 +38,16 @@ router.get("/cus/benificiary/:id/new",isLoggedIn,function(req,res){
     
 })
 
+router.get("/cus/benificiary/:id/:benid",isLoggedIn,function(req,res){
+    Benificiary.findByIdAndDelete(req.params.benid,function(err,foundBen){
+        if(err){
+            console.log(err);
+        } else{
+            res.redirect("/cus/benificiary/"+req.params.id);
+        }
+    })
+    
+})
 router.post("/cus/benificiary/:id",isLoggedIn,function(req,res){
     Account.findOne({accountno:req.body.benificiary.accountno},function(err,benacc){
         if(err){

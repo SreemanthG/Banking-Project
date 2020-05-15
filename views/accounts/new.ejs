@@ -21,6 +21,15 @@
                   <option value="Chennai">Chennai</option>
                 </select>
               </div>
+              <!-- <div class="form-group">
+                <label for="exampleInputPassword1">Gender</label>
+                <select class="custom-select" name="account[gender]" required  id="inputGroupSelect01">
+                  <option selected>Choose...</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div> -->
               <div class="form-group">
                 <label for="exampleInputPassword1">Account Type</label>
                 <select class="custom-select" name="account[accounttype]" required  id="inputGroupSelect01">
@@ -30,26 +39,32 @@
                   <option value="fixed">Fixed</option> -->
                 </select>
               </div>
+              <!-- <div class="form-group">
+                <label for="exampleInputPassword1">DOB</label>
+                <input type="date" class="form-control" name="account[dob]" required  id="exampleInputPassword1">
+              </div> -->
               <div class="form-group">
                 <label for="exampleInputPassword1">Pin</label>
                 <input type="password" class="form-control" name="account[pin]" required  id="exampleInputPassword1">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Mobile Number</label>
-                <input type="password" class="form-control" name="account[mobile]"  required id="exampleInputPassword1">
+                <input type="number" class="form-control" name="account[mobile]"  required id="exampleInputPassword1">
               </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="exampleInputPassword1">Adhaar Number</label>
               <input type="number" class="form-control" name="account[adhaar]"  required id="exampleInputPassword1">
-            </div>
+            </div> -->
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Address</label>
               <textarea name="account[address]" class="form-control"  required id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
-            <!-- <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div> -->
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Balance</label>
+              <input type="number" name="account[balance]" class="form-control"  placeholder="in rupees"  required id="exampleInputPassword1">
+
+            </div>
+            
             <button type="submit" class="btn btn-primary">Request for Account</button>
           
           </form>

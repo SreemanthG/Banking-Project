@@ -1,11 +1,11 @@
 <%- include("../partials/header")-%>
 
     <div class="login pt-5">
-        <h3>Add new Account for benificiary</h3>
+        <h3>Enter details</h3>
         <br>
         <form method="POST" action="/cus/transactions/<%=account._id%>">
             <div class="form-group">
-            <label for="exampleInputEmail1">Amount</label>
+            <label for="exampleInputEmail1">Amount in RS</label>
             <input type="number" required class="form-control" required value="" name="transactions[amount]" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <!-- <div class="form-group">

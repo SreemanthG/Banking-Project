@@ -1,0 +1,28 @@
+<%- include("../partials/header")-%>
+
+    <div class="login pt-5">
+        <h3>Transfer Money through check</h3>
+        <br>
+        <form method="POST" action="/emp/addcheck">
+            <div class="form-group">
+            <label for="exampleInputEmail1">From</label>
+            <input type="number" required class="form-control" required value="" name="check[from]" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">To</label>
+                <input type="number" required class="form-control" required value="" name=check[to]" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">CheckNo</label>
+                <input type="Text" required class="form-control" required value="" name="check[checkno]" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Amount</label>
+                <input type="number" required class="form-control" required value="" name="check[amount]" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+    </div>
+
+    
+<%- include("../partials/footer")-%>

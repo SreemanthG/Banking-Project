@@ -6,8 +6,8 @@
             <div class="col-md-3 mt-3">
                 <div class="card p-3 text-center">
                     
-                    <h5><%= account.accountname%></h5>
-                    <h5><%= account.accountno%></h5>
+                    <strong>Account Name</strong>:<%= account.accountname%>
+                    <strong>Account No.</strong>:<%= account.accountno%>
                     <div><a href="/cus/transactions/<%=account._id%>/sendMail?to=<%=account.email%>" class="btn btn-primary">Select</a></div>
             
                 </div>

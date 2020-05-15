@@ -5,21 +5,31 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="jumbotron">
+                <a href="" class="btn btn-success float-right" style="color:white">Edit</a>
                 <div class="accdetails">
                     <strong>Email Id</strong>: <%= user.email%>
                 </div>
                 <div class="accdetails">
-                    <strong>Mobile Number</strong>: <%= user.email%>
+                    <strong>Mobile Number</strong>: <%= user.mobile%>
                 </div>
                 <div class="accdetails">
-                    <strong>Name</strong>: <%= user.email%>
+                    <strong>Name</strong>: <%= user.username%>
                 </div>
                 <div class="accdetails">
-                    <strong>Address</strong>: <%= user.email%>
+                    <strong>Address</strong>: <%= user.address%>
                 </div>
                 <div class="accdetails">
+                    <strong>Gender</strong>: <%= user.gender%>
+                </div>
+                <div class="accdetails">
+                    <strong>DOB</strong>: <%= user.dob.getDate()%>/<%= user.dob.getMonth()%>/<%= user.dob.getFullYear()%>
+                </div>
+                <div class="accdetails">
+                    <strong>Addaar</strong>: <%= user.adhaar%>
+                </div>
+                <!-- <div class="accdetails">
                     <strong>No. of accounts</strong>: <%= user.email%>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -35,20 +45,20 @@
             <div class="col-md-3 mt-3">
                 <div class="card p-3 text-center">
                     
-                    <h5><%= account.accountname%></h5>
-                    <h5><%= account.accountno%></h5>
-                    <h5><%= account.branch%></h5>
-                    <h5><%= account.accounttype%></h5>
-                    <h5><%= account.balance%></h5>
-                    <h5><%= account.mobile%></h5>
-                    <h5><%= account.email%></h5>
-                    <h5><%= account.address%></h5>
-                    <h5><%= account.pin%></h5>
+                 
+                        <strong>Account Number</strong>:<%= account.accountno%>
+             
+            
+                        <strong>Account Name</strong>: <%= account.accountname%>
+               
+               
+                        <strong>Branch</strong>: <%= account.branch%>
+                 
 
                   <% if(account.isAccepted){%>
-                  <a href="/cus/profile/acc/<%= account._id%>" class="btn btn-primary">Show</a>
+                  <a href="/cus/profile/acc/<%= account._id%>" class=" mt-3 btn btn-primary">Show</a>
                   <%} else{%>
-                    <a href="" class="btn btn-primary disabled">Not accepted Yet</a>
+                    <a href="" class="mt-3 btn btn-primary disabled">Not accepted Yet</a>
                     <%}%>
                 </div>
             </div>
